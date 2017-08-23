@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="sumit kumar">
+  <title>admin-template</title>
+  <link href="css/css/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+  <link href="css/template.css" rel="stylesheet" type="text/css">
+ <script src="js/07b0ce5d10.js"></script>
+ <script src="js/screenfull.js"></script>
+ <script src="js/jquery-3.1.1.js"></script>
+
+  <script src="js/bootstrap.js"></script>
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+ <script>
+ //var $ = jQuery;
+		$(function () {
+			$('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
+
+			if (!screenfull.enabled) {
+				return false;
+			}
+
+			
+
+			$('#toggle').click(function () {
+				screenfull.toggle($('#container')[0]);
+			});	
+		});
+		</script>
+ </head>
+<link rel="stylesheet" href="css/style.css">
+
+<script src="js/ajax.jquery.min.js"></script>
+<script src="js/app.js"></script>
+<script type="text/javascript" >
+
+</script>
+<link rel="stylesheet" href="css/bootstrap.css">
+<body>
+  <!--=============================
+                                             NAVIGATION
+                                   =============================-->
+								   <div id="dim"></div>
+
+<div class="pop" id="pop-local">
+	<p class="pop-title">LOAD LOCAL IMAGE</p>
+	<div class="pop-content">
+		<input type="file" id="pop-local-input">
+	</div>
+	<div class="pop-btn">
+		<div class="pop-btn-confirm">LOAD</div>
+		<div class="pop-btn-cancel">CANCEL</div>
+	</div>
+</div>
+
+<div class="pop" id="pop-url">
+	<p class="pop-title">LINK IMAGE URL</p>
+	<div class="pop-content">
+		<input type="text" id="pop-url-input">
+	</div>
+	<div class="pop-btn">
+		<div class="pop-btn-confirm">LINK</div>
+		<div class="pop-btn-cancel">CANCEL</div>
+	</div>	
+</div>
+
+<div class="pop" id="pop-code">
+	<p class="pop-title">CODE GENERATED</p>
+	<div class="pop-btn">
+		<div class="pop-btn-copy" id="pop-btn-copy-a">SHOW MARKUP AS <em>&lt;A&gt; TAG</em> FORM</div>
+		<div class="pop-btn-copy" id="pop-btn-copy-im">SHOW MARKUP AS <em>IMAGE MAP</em> FORM</div>
+		<div class="pop-btn-cancel _full">CLOSE</div>
+	</div>
+</div>
+
+<div class="pop" id="pop-codegen-a">
+	<p class="pop-title">&lt;A&gt; TAG FORM</p>
+	<div class="pop-content">
+		<p></p>
+	</div>
+	<div class="pop-btn-cancel _back">BACK</div>
+	<div class="pop-btn-cancel">CLOSE</div>
+</div>
+
+<div class="pop" id="pop-codegen-im">
+	<p class="pop-title">IMAGE MAP FORM</p>
+	<div class="pop-content">
+		<p></p>
+	</div>
+	<div class="pop-btn-cancel _back">BACK</div>
+	<div class="pop-btn-cancel">CLOSE</div>
+</div>
+
+<div class="pop" id="pop-info">
+	<p class="pop-title">APP INFORMATION</p>
+	<div class="pop-content">
+		<p>
+			<em class="pop-content-alert">&#9888; </em>
+			<strong></strong><br>
+			<br>
+			<br>
+			<a class="_hover-ul" href="" target="_blank"></a>
+		</p>
+	</div>
+	<div class="pop-btn-cancel _full">CLOSE</div>
+</div>
+
+<div class="pop" id="pop-addlink">
+	<p class="pop-title">ADD DATA</p>
+	<div class="pop-content">
+	        <form id="upload-file-form">
+              
+              </form>
+		<form id="submitForm"   >
+		   <label for="upload-file-input">Upload your file:</label>
+                 <input id="upload-file-input" type="file" name="uploadfile" accept="*" required/>
+              <br />
+               <span id="upload-file-message"></span>
+		    <label>ASSET<input type="text" id="pop-addlink-input-asset"  ></label>
+		
+		      <label>ASSETASSOCIE<input type="text" id="pop-addlink-input-desc"></label>
+			
+    
+		<input type="submit" value="Create"  onclick="uploadData();"/>
+		</form>
+	
+ 
+	</div>
+	<div class="pop-btn" >
+		<div class="pop-btn-confirm">ADD</div>
+		<div class="pop-btn-cancel">CANCEL</div>
+		<button  onclick="ZOOM()" >ZOOM</button>
+		
+	</div>
+</div>
+  <!--top nav start=======-->
+  <nav class="navbar navbar-inverse top-bar navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button> <span class="menu-icon" id="menu-icon"><i class="fa fa-times" aria-hidden="true" id="chang-menu-icon"></i></span>
+        <a class="navbar-brand" href="#"> </a>
+      </div>
+	    <ul class="nav navbar-nav">
+		    <li class=""><a id="gnb-title" href="index.htm" onclick="if (!confirm('Do you want to reset all the changes?')) return false;">&#8635; REFRESH</a></li>
+			<li class="">
+			    <div class="full-screen">
+				    <section class="full-top">
+					<button id="toggle"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>	
+				    </section>
+			    </div>
+			</li>
+			</ul>
+		<!-- Menu déroulant -->
+	<ul id="gnb-menu">
+	<li id="gnb-retour">RETOURNER</li>
+		<li id="gnb-menu-source">
+			<span>SOURCE &#9662;</span>
+			<ul class="gnb-menu-sub">
+				<li id="gnb-menu-local">LOCAL</li>
+				<li id="gnb-menu-url">URL</li>
+			</ul>
+		</li>
+		<li id="gnb-menu-measure">
+			<span>MEASURE &#9662;</span>
+			<ul class="gnb-menu-sub _toggle">
+				<li id="gnb-menu-drag" class="_active">DRAG<em>&nbsp;&#10003;</em></li>
+				<li id="gnb-menu-click">CLICK<em>&nbsp;&#10003;</em></li>
+			</ul>
+		</li> 
+		<li id="gnb-menu-unit">
+			<span>UNIT &#9662;</span>
+			<ul class="gnb-menu-sub _toggle">
+				<li id="gnb-menu-pixel" class="_active">PX<em>&nbsp;&#10003;</em></li>
+				<li id="gnb-menu-percent">%<em>&nbsp;&#10003;</em></li>
+			</ul>
+		</li>
+		<li id="gnb-menu-clear">
+			<span>CLEAR</span>
+		</li>
+		<li id="gnb-menu-generate">
+			<span>VALIDER</span>
+		</li>
+		<li id="gnb-menu-info">
+			<span>?</span>
+		</li>
+	</ul>
+      </div>
+    
+  </nav>
+  <!--    top nav end===========-->
+  <div class="wrapper" id="wrapper">
+    <div class="left-container" id="left-container">
+      <!-- begin SIDE NAV USER PANEL -->
+      <div class="left-sidebar" id="show-nav">
+        <ul id="side" class="side-nav">
+          <li class="panel">
+            <a id="panel1" href="javascript:;" data-toggle="collapse" data-target="#Dashboard"> <i class="fa fa-dashboard"></i> Dashboard
+              <i class="fa fa-chevron-left pull-right" id="arow1"></i> </a>
+            <ul class="collapse nav" id="Dashboard">
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Flot Charts</a> </li>
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Morris.js</a> </li>
+            </ul>
+          </li>
+          <li class="panel">
+            <a id="panel2" href="javascript:;" data-toggle="collapse" data-target="#charts"> <i class="fa fa-bar-chart-o"></i> Charts
+              <i class="fa fa-chevron-left pull-right" id="arow2"></i> </a>
+            <ul class="collapse nav" id="charts">
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Flot Charts</a> </li>
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Morris.js</a> </li>
+            </ul>
+          </li>
+          <li class="panel">
+            <a id="panel3" href="javascript:;" data-toggle="collapse" data-target="#calendar"> <i class="fa fa-calendar"></i> calendar
+              <span class="label label-danger">new event</span> <i class="fa fa-chevron-left pull-right" id="arow3"></i> </a>
+            <ul class="collapse nav" id="calendar">
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Flot Charts</a> </li>
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Morris.js</a> </li>
+            </ul>
+          </li>
+          <li class="panel">
+            <a id="panel4" href="javascript:;" data-toggle="collapse" data-target="#clipboard"> <i class="fa fa-clipboard"></i> clipboard
+              <i class="fa fa fa-chevron-left pull-right" id="arow4"></i> </a>
+            <ul class="collapse nav" id="clipboard">
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Flot Charts</a> </li>
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Morris.js</a> </li>
+            </ul>
+          </li>
+          <li class="panel">
+            <a id="panel5" href="javascript:;" data-toggle="collapse" data-target="#edit"> <i class="fa fa-edit"></i> edit
+              <i class="fa fa fa-chevron-left pull-right" id="arow5"></i>
+            </a>
+            <ul class="collapse nav" id="edit">
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Flot Charts</a> </li>
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Morris.js</a> </li>
+            </ul>
+          </li>
+          <li class="panel">
+            <a id="panel6" href="javascript:;" data-toggle="collapse" data-target="#inbox"> <i class="fa fa-inbox"></i> inbox
+              <span class="label label-primary">new msz</span> <i class="fa fa fa-chevron-left pull-right" id="arow6"></i> </a>
+            <ul class="collapse nav" id="inbox">
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Flot Charts</a> </li>
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Morris.js</a> </li>
+            </ul>
+          </li>
+          <li class="panel">
+            <a id="panel7" href="javascript:;" data-toggle="collapse" data-target="#cogs"> <i class="fa fa-cogs"></i> cogs
+              <span class="label label-warning">Warning</span> <i class="fa fa fa-chevron-left pull-right" id="arow7"></i> </a>
+            <ul class="collapse nav" id="cogs">
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Flot Charts</a> </li>
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Morris.js</a> </li>
+            </ul>
+          </li>
+          <li class="panel">
+            <a id="panel8" href="javascript:;" data-toggle="collapse" data-target="#paper"> <i class="fa fa-paper-plane"></i> paper
+              <i class="fa fa fa-chevron-left pull-right" id="arow8"></i> </a>
+            <ul class="collapse nav" id="paper">
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Flot Charts</a> </li>
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Morris.js</a> </li>
+            </ul>
+          </li>
+          <li class="panel">
+            <a id="panel9" href="javascript:;" data-toggle="collapse" data-target="#trash"> <i class="fa fa-trash"></i> Trash
+              <i class="fa fa fa-chevron-left pull-right" id="arow9"></i>
+            </a>
+            <ul class="collapse nav" id="trash">
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Flot Charts</a> </li>
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Morris.js</a> </li>
+            </ul>
+          </li>
+          <li class="panel">
+            <a id="panel10" href="javascript:;" data-toggle="collapse" data-target="#btc">
+              <i class="fa fa-btc"></i> paper
+              <i class="fa fa fa-chevron-left pull-right" id="arow10"></i>
+            </a>
+            <ul class="collapse nav" id="btc">
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Flot Charts</a> </li>
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Morris.js</a> </li>
+            </ul>
+          </li>
+          <li class="panel">
+            <a id="panel11" href="javascript:;" data-toggle="collapse" data-target="#pie-Chart">
+              <i class="fa fa-bar-chart"></i> Chart
+              <span class="label label-success">Supper</span> <i class="fa fa fa-chevron-left pull-right" id="arow11"></i> </a>
+            <ul class="collapse nav" id="pie-Chart">
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Flot Charts</a> </li>
+              <li> <a href="#"><i class="fa fa-angle-double-right"></i> Morris.js</a> </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- END SIDE NAV USER PANEL -->
+    </div>
+    <div class="right-container" id="right-container">
+        <div class="container-fluid">
+        <div class="row">
+		
+            <!-- Dim l'écran-->
+
+
+<!-- Workspaces -->
+<div id="workspace">
+	<!-- Rulers -->
+	<div id="workspace-ruler">
+		<div id="workspace-ruler-x">
+			<div id="workspace-ruler-x-2"></div>
+			<div id="workspace-ruler-x-1"></div>
+		</div>
+		<div id="workspace-ruler-y">
+			<div id="workspace-ruler-y-2"></div>
+			<div id="workspace-ruler-y-1"></div>
+		</div>
+	</div>
+	
+	<!--  Images -->
+	<div id="workspace-img-wrap">
+		<img  id="workspace-img" style="min-width:1250px; min-height:800px;">
+		
+		<!-- grille -->
+		<div id="grid-x1" class="grid-1"></div>
+		<div id="grid-y1" class="grid-1"></div>
+		<div id="grid-x2" class="grid-2"></div>
+		<div id="grid-y2" class="grid-2"></div>
+		<span id="grid-coords"></span>
+	</div>
+	
+</div>
+            
+               
+        </div>
+    </div>
+  </div>
+   </div>
+   
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#panel1").click(function() {
+        $("#arow1").toggleClass("fa-chevron-left");
+        $("#arow1").toggleClass("fa-chevron-down");
+      });
+        
+      $("#panel2").click(function() {
+        $("#arow2").toggleClass("fa-chevron-left");
+        $("#arow2").toggleClass("fa-chevron-down");
+      });
+        
+      $("#panel3").click(function() {
+        $("#arow3").toggleClass("fa-chevron-left");
+        $("#arow3").toggleClass("fa-chevron-down");
+      });
+        
+      $("#panel4").click(function() {
+        $("#arow4").toggleClass("fa-chevron-left");
+          $("#arow4").toggleClass("fa-chevron-down");
+      });
+        
+      $("#panel5").click(function() {
+        $("#arow5").toggleClass("fa-chevron-left");
+        $("#arow5").toggleClass("fa-chevron-down");
+      });
+        
+      $("#panel6").click(function() {
+        $("#arow6").toggleClass("fa-chevron-left");
+        $("#arow6").toggleClass("fa-chevron-down");
+      });
+        
+      $("#panel7").click(function() {
+        $("#arow7").toggleClass("fa-chevron-left");
+        $("#arow7").toggleClass("fa-chevron-down");
+      });
+        
+      $("#panel8").click(function() {
+        $("#arow8").toggleClass("fa-chevron-left");
+        $("#arow8").toggleClass("fa-chevron-down");
+      });
+        
+      $("#panel9").click(function() {
+        $("#arow9").toggleClass("fa-chevron-left");
+        $("#arow9").toggleClass("fa-chevron-down");
+      });
+        
+      $("#panel10").click(function() {
+        $("#arow10").toggleClass("fa-chevron-left");
+        $("#arow10").toggleClass("fa-chevron-down");
+      });
+        
+      $("#panel11").click(function() {
+        $("#arow11").toggleClass("fa-chevron-left");
+        $("#arow11").toggleClass("fa-chevron-down");
+      });
+        
+      $("#menu-icon").click(function() {
+        $("#chang-menu-icon").toggleClass("fa-bars");
+        $("#chang-menu-icon").toggleClass("fa-times");
+        $("#show-nav").toggleClass("hide-sidebar");
+        $("#show-nav").toggleClass("left-sidebar");
+          
+        $("#left-container").toggleClass("less-width");
+        $("#right-container").toggleClass("full-width");
+      });
+        
+     
+        
+    });
+  </script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</body>
+
+</html>

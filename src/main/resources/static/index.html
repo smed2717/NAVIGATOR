@@ -1,0 +1,202 @@
+<!doctype html><html><head><title>Easy Image Mapper</title><meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/bootstrap.css">
+<script src="js/jquery-1.12.4.min.js"></script>
+
+<script src="js/angular.min.js"></script>
+<script src="js/app.js"></script>
+<script src="js/screenfull.js"></script>
+<script type="text/javascript" >
+
+//var $ = jQuery;
+		$(function () {
+			$('#supported').text('Supported/allowed: ' + !!screenfull.enabled);
+
+			if (!screenfull.enabled) {
+				return false;
+			}
+
+			
+
+			$('#toggle').click(function () {
+				screenfull.toggle($('#container')[0]);
+			});	
+		});
+		
+</script>
+</head>
+<body ng-app="MyApp" ng-controller="MyController"  >
+
+ 
+<!-- Dim l'écran-->
+<div id="dim"></div>
+
+<div class="pop" id="pop-local">
+	<p class="pop-title">LOAD LOCAL IMAGE</p>
+	<div  class="pop-content">
+		  <form id="localeForm">
+		  <label>IMAGE<input type="file" id="pop-local-input" name="uploadfile" ></label>
+		 <label>ASSET<input type="text" id="pop-url-input"></label></form>
+	</div>
+	<div class="pop-btn">
+		<div class="pop-btn-confirm">LOAD</div>
+		<div class="pop-btn-cancel">CANCEL</div>
+	</div>
+</div>
+
+<div class="pop" id="pop-url">
+	<p class="pop-title">LINK IMAGE URL</p>
+	<div class="pop-content">
+		<input type="text" id="pop-url-input">
+		<input type="text" id="pop-url-input">
+	</div>
+	<div class="pop-btn">
+		<div class="pop-btn-confirm">LINK</div>
+		<div class="pop-btn-cancel">CANCEL</div>
+	</div>	
+</div>
+
+<div class="pop" id="pop-code">
+	<p class="pop-title">CODE GENERATED</p>
+	<div class="pop-btn">
+		<div class="pop-btn-copy" id="pop-btn-copy-a">SHOW MARKUP AS <em>&lt;A&gt; TAG</em> FORM</div>
+		<div class="pop-btn-copy" id="pop-btn-copy-im">SHOW MARKUP AS <em>IMAGE MAP</em> FORM</div>
+		<div class="pop-btn-cancel _full">CLOSE</div>
+	</div>
+</div>
+
+<div class="pop" id="pop-codegen-a">
+	<p class="pop-title">&lt;A&gt; TAG FORM</p>
+	<div class="pop-content">
+		<p></p>
+	</div>
+	<div class="pop-btn-cancel _back">BACK</div>
+	<div class="pop-btn-cancel">CLOSE</div>
+</div>
+
+<div class="pop" id="pop-codegen-im">
+	<p class="pop-title">IMAGE MAP FORM</p>
+	<div class="pop-content">
+		<p></p>
+	</div>
+	<div class="pop-btn-cancel _back">BACK</div>
+	<div class="pop-btn-cancel">CLOSE</div>
+</div>
+
+<div class="pop" id="pop-info">
+	<p class="pop-title">APP INFORMATION</p>
+	<div class="pop-content">
+		<p>
+			<em class="pop-content-alert">&#9888; This app works on IE10+ only.</em>
+			<strong>Easy Image Mapper (v1.2.0)</strong><br>
+			Author: Inpyo Jeon<br>
+			Contact: inpyoj@gmail.com<br>
+			Website: <a class="_hover-ul" href="https://github.com/1npy0/easy-mapper" target="_blank">GitHub Repository</a>
+		</p>
+	</div>
+	<div class="pop-btn-cancel _full">CLOSE</div>
+</div>
+
+<div class="pop" id="pop-addlink">
+	<p class="pop-title">ADD DATA</p>
+	<div class="pop-content">
+	       
+		<form id="submitForm"   >
+		   <label for="upload-file-input">Upload your file:</label>
+                 <input id="upload-file-input" type="file" name="uploadfile" accept="*" required/>
+              <br />
+               <span id="upload-file-message"></span>
+		   <label for="repeatSelect">ASSET</label>
+		 <select id="pop-addlink-input-asset" name="repeatSelect"  ng-model="option"  ng-options="option as option.ASSETNUM for option in data.availableOptions">
+      <option  ng-value="{{option.ASSETNUM}}"></option>
+    </select>
+		   <label  >ASSETASSOCIE<input  type="text" id="pop-addlink-input-parent" disabled  ng-value="{{option.PARENT}}" ></label>
+			
+               <label>DESCRIPTION<input type="text" id="pop-addlink-input-desc" disabled  value="{{option.DESCRIPTION}}" ></label>
+			    <label>SITEID<input type="text" id="pop-addlink-input-siteid" disabled  value="{{option.SITEID}}" ></label>
+    
+		<input type="submit" value="Create"  onclick="uploadData();"/>
+		<input type="submit" value="update"  onclick="setLinkToMapEl();"/>
+		<button  onclick="ZOOM()" >VIEW</button>
+		</form>
+	
+ 
+	</div>
+	<div class="pop-btn" >
+		<!--  <div class="pop-btn-confirm">ADD</div>
+		<div class="pop-btn-cancel">CANCEL</div>-->
+		
+		
+	</div>
+</div>
+
+<!-- Header -->
+<div id="gnb">
+	<a id="gnb-title" href="index.html" onclick="if (!confirm('Do you want to reset all the changes?')) return false;">&#8635; REFRESH</a>
+	
+	<!-- Menu déroulant -->
+	<ul id="gnb-menu">
+	<li id="gnb-menu-drag" class="_active" style="display: none;">DRAG<em>&nbsp;&#10003;</em></li>
+		<li id="gnb-menu-source">
+			<span>SOURCE &#9662;</span>
+			<ul class="gnb-menu-sub">
+				<li id="gnb-menu-local">LOCAL</li>
+				<li id="gnb-menu-url">URL</li>
+			</ul>
+		</li>
+		<li id="gnb-retour">RETURN</li>
+		
+		
+	</ul>
+</div>
+
+<!-- Workspaces -->
+<div id="workspace" style="height:1000px;">
+	<!-- Rulers -->
+	<div id="workspace-ruler">
+		<div id="workspace-ruler-x">
+			<div id="workspace-ruler-x-2"></div>
+			<div id="workspace-ruler-x-1"></div>
+		</div>
+		<div id="workspace-ruler-y">
+			<div id="workspace-ruler-y-2"></div>
+			<div id="workspace-ruler-y-1"></div>
+		</div>
+	</div>
+	
+	<!--  Images -->
+	<div id="workspace-img-wrap">
+		<img  id="workspace-img"  style="min-width:1250px; " > <!-- min-height:1000px; -->
+		
+		<!-- grille -->
+		<div id="grid-x1" class="grid-1"></div>
+		<div id="grid-y1" class="grid-1"></div>
+		<div id="grid-x2" class="grid-2"></div>
+		<div id="grid-y2" class="grid-2"></div>
+		<span id="grid-coords"></span>
+		
+			</div>
+	
+</div>
+<script type="text/javascript">
+'use strict';
+angular.module('MyApp', [])
+  .controller('MyController', ['$scope', '$http', function($scope,$http) {
+	  
+	  $scope.data =[];
+	  $http.get("http://localhost:9999/AllAssetNum").success(function(data){
+		 // for (var i=0; i< data.ASSETMboSet.ASSET.length; i++) {
+		  $scope.data.availableOptions = data.ASSETMboSet.ASSET;  
+		 
+          console.log(data.ASSETMboSet.ASSET);
+          //}
+		  //$scope.data.availableOptions= data;
+    }).error(function(data) {
+    	
+    });
+	
+ }]);
+            </script>
+</body></html>
